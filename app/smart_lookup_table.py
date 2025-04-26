@@ -30,6 +30,9 @@ class SmartLookupTable[K: Hashable, T]:
 
     def insert(self, key: K, value: T) -> None:         # put
         position = self.p_hash(key)
+
+        if any(k == key for k, v in self.table[position]):
+            self.remove(key)
         self.table[position].append((key, value))
 
     def _find_matching_key(self, target: K, candidates: list) -> int:
@@ -118,6 +121,7 @@ if __name__ == "__main__":
     print(SMT.size())
     print("")
     SMT.remove("ssac")
+    SMT.insert(72, "Sof")
     print(SMT.table)
     print(SMT.size())
 

@@ -18,9 +18,9 @@ class PlayerHashTable:
     def __getitem__(self, key: str) -> Player:          # get
         """Return a player by key"""
         index = self.get_index(Player.make_hash(key))
-        player_list = self.hash_map[index]
+        pl_list = self.hash_map[index]
         try:
-            player_node = player_list.search(key)
+            player_node = pl_list.search(key)
             return player_node.player
 
         except ValueError as e:
@@ -29,12 +29,14 @@ class PlayerHashTable:
     def __setitem__(self, id: str, name: str):          # put
         player = Player(id, name)
         index = self.get_index(hash(player))
-        player_list = self.hash_map[index]
+        pl_list = self.hash_map[index]
         try:
-            node = player_list.search(id)
+            node = pl_list.search(id)
             node.Player = player
+            self.__delitem__(id)
+            pl_list.insert_first(player)
         except ValueError:
-            player_list.insert_first(player)
+            pl_list.insert_first(player)
 
         # hash the player
         # see if player in list
@@ -44,9 +46,9 @@ class PlayerHashTable:
     def __delitem__(self, key) -> None:                 # remove
         player = self.__getitem__(key)
         index = self.get_index(hash(player))
-        player_list = self.hash_map[index]
+        pl_list = self.hash_map[index]
         try:
-            player_list.deleteNode(key)
+            pl_list.deleteNode(key)
         except ValueError:
             pass
 
@@ -103,6 +105,13 @@ def main():
     print("")
     print(ph.__len__())
 
+    ph.__setitem__('5', 'Zoe')
+    ph['5'] = 'zoz'
+
+    print("")
+    ph.display()
+    print("//")
+    print(ph['5'])
 
 if __name__ == '__main__':
     main()
