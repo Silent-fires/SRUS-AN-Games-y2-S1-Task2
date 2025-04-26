@@ -7,22 +7,28 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'a
 from player import Player
 
 class TestPlayer(unittest.TestCase):
+    """Unit tests for the Player class."""
 
     def setUp(self):
+        """Set up a Player instance for testing."""
         self.player = Player("1", "Tanmay")
         print(str(self.player))
 
-    def test_initilization(self):
+    def test_initialisation(self):
+        """Test Player initialisation."""
         self.assertEqual(self.player._ID, "1")
-        self.assertEqual(self.player._PlayerName, "Tanmay")
+        self.assertEqual(self.player._Name, "Tanmay")
 
     def test_uid_property(self):
+        """Test the uid property."""
         self.assertEqual(self.player._ID, "1")
 
     def test_name_property(self):
-        self.assertEqual(self.player._PlayerName, "Tanmay")
+        """Test the name property."""
+        self.assertEqual(self.player._Name, "Tanmay")
 
     def test_str_method(self):
+        """Test the __str__ method."""
         self.assertEqual(str(self.player), "Player(ID=1, Name=Tanmay)")
 
 

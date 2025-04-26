@@ -15,7 +15,7 @@ class SmartLookupTable[K: Hashable, T]:
         self.table = [[] for _ in range(self.SIZE)]
         # self.table = [[]] * self.SIZE  # BAD, dont use
 
-    def p_hash(self, key):
+    def p_hash(self, key) -> int:
         key = bytes(key, encoding='utf8')
         hash_ = 0
         for b in key:
@@ -28,7 +28,7 @@ class SmartLookupTable[K: Hashable, T]:
             raise ValueError
         return sum(map(ord, key)) % self.SIZE
 
-    def insert(self, key: K, value: T) -> None:
+    def insert(self, key: K, value: T) -> None:             # put
         position = self._hash(key)
         self.table[position].append((key, value))
 
@@ -39,7 +39,8 @@ class SmartLookupTable[K: Hashable, T]:
         raise KeyError(
             f"Matching key {target} not found")
 
-    def get(self, key: K) -> T:
+
+    def get(self, key: K) -> T:                             # get
         position = self._hash(key)
         item = self.table[position]
         if not item:
@@ -47,11 +48,11 @@ class SmartLookupTable[K: Hashable, T]:
 
         return item[self._find_matching_key(key, item)]
 
-    def remove(self, key: K) -> None:
+    def remove(self, key: K) -> None:                       # remove
         position = self._hash(key)
         self.table[position] = []
 
-    def size(self):
+    def size(self):                                         # size
         count = 0
         for i in self.table:
             if not i:
@@ -59,6 +60,10 @@ class SmartLookupTable[K: Hashable, T]:
             else:
                 count = count + 1
         return count
+    
+    def __eq__(self, other):
+        return self.uid == other.uid
+
 
 
 if __name__ == "__main__":

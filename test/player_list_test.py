@@ -8,6 +8,7 @@ from player import Player
 from player_list import PlayerList
 
 class TestPlayerList(unittest.TestCase):
+    """Unit tests for the PlayerList class."""
 
     def setUp(self) -> None:
         """Reset the PlayerList before each test."""
@@ -28,7 +29,9 @@ class TestPlayerList(unittest.TestCase):
         self.player_list.insert_first(Player("8", "keb"))
         
         # Expected order is 8 -> 78 -> 77
-        expected = "PlayerNode(-Player(ID=8, Name=keb), previous=None, next=78)  ->  PlayerNode(-Player(ID=78, Name=jakeb), previous=8, next=77)  ->  PlayerNode(-Player(ID=77, Name=jakeb), previous=78, next=None)"
+        expected = ("PlayerNode(-Player(ID=8, Name=keb), previous=None, next=78)  ->  PlayerNode(-Player(ID=78, "
+                    "Name=jakeb), previous=8, next=77)  ->  PlayerNode(-Player(ID=77, Name=jakeb), previous=78, "
+                    "next=None)")
         self.assertEqual(str(self.player_list), expected)
 
     def test_insert_last(self):
@@ -38,7 +41,9 @@ class TestPlayerList(unittest.TestCase):
         self.player_list.insert_last(Player("78", "jakeb"))
 
         # Expected order is 8 -> 77 -> 78
-        expected = "PlayerNode(-Player(ID=8, Name=keb), previous=None, next=77)  ->  PlayerNode(-Player(ID=77, Name=jakeb), previous=8, next=78)  ->  PlayerNode(-Player(ID=78, Name=jakeb), previous=77, next=None)"
+        expected = ("PlayerNode(-Player(ID=8, Name=keb), previous=None, next=77)  ->  PlayerNode(-Player(ID=77, "
+                    "Name=jakeb), previous=8, next=78)  ->  PlayerNode(-Player(ID=78, Name=jakeb), previous=77, "
+                    "next=None)")
         self.assertEqual(str(self.player_list), expected)
 
 
@@ -51,7 +56,8 @@ class TestPlayerList(unittest.TestCase):
         self.player_list.Delete_first()
         
         # Expected order after deleting the first player is 78 -> 77
-        expected = "PlayerNode(-Player(ID=78, Name=jakeb), previous=None, next=77)  ->  PlayerNode(-Player(ID=77, Name=jakeb), previous=78, next=None)"
+        expected = ("PlayerNode(-Player(ID=78, Name=jakeb), previous=None, next=77)  ->  PlayerNode(-Player(ID=77, "
+                    "Name=jakeb), previous=78, next=None)")
         self.assertEqual(str(self.player_list), expected)
 
     def test_noneDelete_first(self):
@@ -71,7 +77,8 @@ class TestPlayerList(unittest.TestCase):
         self.player_list.Delete_last()
         
         # Expected order after deleting the last player is 8 -> 77
-        expected = "PlayerNode(-Player(ID=8, Name=keb), previous=None, next=77)  ->  PlayerNode(-Player(ID=77, Name=jakeb), previous=8, next=None)"
+        expected = ("PlayerNode(-Player(ID=8, Name=keb), previous=None, next=77)  ->  PlayerNode(-Player(ID=77, "
+                    "Name=jakeb), previous=8, next=None)")
         self.assertEqual(str(self.player_list), expected)
 
     def test_noneDelete_last(self):
@@ -90,12 +97,15 @@ class TestPlayerList(unittest.TestCase):
 
         self.player_list.deleteNode("7")
         # Expected order ID 8 -> 77 -> 78
-        expected = "PlayerNode(-Player(ID=8, Name=keb), previous=None, next=77)  ->  PlayerNode(-Player(ID=77, Name=jakeb), previous=8, next=78)  ->  PlayerNode(-Player(ID=78, Name=jakeb), previous=77, next=None)"
+        expected = ("PlayerNode(-Player(ID=8, Name=keb), previous=None, next=77)  ->  PlayerNode(-Player(ID=77, "
+                    "Name=jakeb), previous=8, next=78)  ->  PlayerNode(-Player(ID=78, Name=jakeb), previous=77, "
+                    "next=None)")
         self.assertEqual(str(self.player_list), expected)
 
         self.player_list.deleteNode("77")
         # Expected order after deleting node with ID "77" is 8 -> 78
-        expected = "PlayerNode(-Player(ID=8, Name=keb), previous=None, next=78)  ->  PlayerNode(-Player(ID=78, Name=jakeb), previous=8, next=None)"
+        expected = ("PlayerNode(-Player(ID=8, Name=keb), previous=None, next=78)  ->  PlayerNode(-Player(ID=78, "
+                    "Name=jakeb), previous=8, next=None)")
         self.assertEqual(str(self.player_list), expected)
 
         self.player_list.deleteNode("8")
@@ -113,7 +123,7 @@ class TestPlayerList(unittest.TestCase):
 
 
     def test_displayForward(self):
-        """Test deleting the last player."""
+        """Test display head to tail."""
         self.player_list.insert_last(Player("8", "keb"))
         self.player_list.insert_last(Player("77", "jakeb"))
         self.player_list.insert_last(Player("78", "jakeb"))
@@ -124,7 +134,7 @@ class TestPlayerList(unittest.TestCase):
         self.assertEqual(output, expected)
 
     def test_displayBack(self):
-        """Test deleting the last player."""
+        """Test display tail to head."""
         self.player_list.insert_last(Player("8", "keb"))
         self.player_list.insert_last(Player("77", "jakeb"))
         self.player_list.insert_last(Player("78", "jakeb"))
@@ -133,6 +143,8 @@ class TestPlayerList(unittest.TestCase):
         # Expected order after deleting the last player is 8 -> 77
         expected = "Player(ID=78, Name=jakeb) -> Player(ID=77, Name=jakeb) -> Player(ID=8, Name=keb)"
         self.assertEqual(output, expected)
+
+
         
 if __name__ == "__main__":
     unittest.main()
