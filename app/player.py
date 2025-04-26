@@ -1,5 +1,6 @@
 from pearson import pearson_hash
 
+
 class Player:
     """Represents a player with a unique ID, name, and hashed password."""
 
@@ -38,7 +39,6 @@ class Player:
         """Sets the player's name."""
         self._Name = player_name
 
-
     def __hash__(self) -> int:
         return self.make_hash(self.uid)
 
@@ -57,6 +57,8 @@ def main():
     print(str(player.uid))
     print(str(player.name))
     print("")
+
+    print(player.__hash__())
 
     # debug
     # print(f"Player(ID={player.uid}, Name={player.name}")
