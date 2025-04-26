@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING
 
 from player_list import PlayerList
-from player import Player
+from player import Player  # smart_lookup_table reached as well
 
 
 class PlayerHashTable:
@@ -52,13 +52,13 @@ class PlayerHashTable:
 
     def size(self):
         count = 0
-        for i in self.table:
+        for i in self.hash_map:
             if not i:
                 pass
             else:
                 count = count + 1
         return count
-    
+
     def print_table(self):
         """
         Prints the entire hash table, displaying each index and its associated PlayerList.

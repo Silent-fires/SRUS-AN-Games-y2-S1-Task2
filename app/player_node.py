@@ -47,7 +47,6 @@ class PlayerNode:
         prev_str = str(self.prev._player.uid) if self.prev else "None"
         next_str = str(self.next._player.uid) if self.next else "None"
         return f"PlayerNode(-{self._player}, previous={prev_str}, next={next_str})"
-        #return f"PlayerNode(player={self._player}, previous={prev_str}, next={next_str})"
 
     @property
     def player(self):
