@@ -184,7 +184,11 @@ def sha256_hash(key: str, size: int) -> int:
 
 6. Write pseudocode of how you would store Players in PlayerLists in a hash map.
 
-> Your answer here
+> 1. intake a 'player' value, consisting of key/ID and value/name
+> 2. Use the player's key/ID value to calculate a hash and index into the hash map.
+> 3. Check if the player is already in the player list. <br>
+         If it is, update the player's value/name. <br>
+         If it isn't, create a player and add the player to the player list.
 
 ## Reflection
 

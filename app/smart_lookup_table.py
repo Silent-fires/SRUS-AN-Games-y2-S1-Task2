@@ -3,12 +3,12 @@ import pearson
 from typing import Hashable
 
 random.seed(42)
-pearson_table = list(range(10))  # Max 256
-random.shuffle(pearson_table)
 
 
 class SmartLookupTable[K: Hashable, T]:
     SIZE = 10  # max = 256
+    pearson_table = list(range(SIZE))  # Max 256
+    random.shuffle(pearson_table)
     table = list[T | None]
 
     def __init__(self):
@@ -19,14 +19,8 @@ class SmartLookupTable[K: Hashable, T]:
         key = bytes(key, encoding='utf8')
         hash_ = 0
         for b in key:
-            hash_ = pearson_table[(hash_ ^ b) % self.SIZE]
+            hash_ = self.pearson_table[(hash_ ^ b) % self.SIZE]
         return hash_
-
-    # def _hash(self, key: K) -> int:
-    #     key = str(key)
-    #     if len(key) == 0:
-    #         raise ValueError
-    #     return sum(map(ord, key)) % self.SIZE
 
     def insert(self, key: K, value: T) -> None:         # put
         position = self.p_hash(key)
@@ -100,11 +94,6 @@ if __name__ == "__main__":
     print(file, "  get3")
     file = SMT.get("ssac")
     print(file, "  get4")
-
-    # print("Not so good hash:")
-    # print(SMT._hash("aaaaaa"))
-    # print(SMT._hash("aaaaab"))
-    # print(SMT._hash("baaaaa"))
 
     print("Pearsons:")
     print(SMT.p_hash("aaaaaa"))
