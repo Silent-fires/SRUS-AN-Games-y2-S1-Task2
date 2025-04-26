@@ -58,7 +58,8 @@ class SmartLookupTable[K: Hashable, T]:
             if not i:
                 pass
             else:
-                count = count + 1
+                for j in i:
+                    count = count + 1
         return count
 
     def display(self):                                  # display
@@ -124,3 +125,4 @@ if __name__ == "__main__":
     print("")
 
     SMT.display()
+

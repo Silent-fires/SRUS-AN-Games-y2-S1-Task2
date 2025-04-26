@@ -15,7 +15,7 @@ class PlayerHashTable:
     def get_index(self, hash_: int):
         return hash_ % self.SIZE
 
-    def __getitem__(self, key: str) -> Player:
+    def __getitem__(self, key: str) -> Player:          # get
         """Return a player by key"""
         index = self.get_index(Player.make_hash(key))
         player_list = self.hash_map[index]
@@ -26,7 +26,7 @@ class PlayerHashTable:
         except ValueError as e:
             raise KeyError(str(e))
 
-    def __setitem__(self, id: str, name: str):
+    def __setitem__(self, id: str, name: str):          # put
         player = Player(id, name)
         index = self.get_index(hash(player))
         player_list = self.hash_map[index]
@@ -41,7 +41,7 @@ class PlayerHashTable:
         # if yes, replace player
         # else append player
 
-    def remove(self, key) -> None:
+    def __delitem__(self, key) -> None:                 # remove
         player = self.__getitem__(key)
         index = self.get_index(hash(player))
         player_list = self.hash_map[index]
@@ -50,16 +50,19 @@ class PlayerHashTable:
         except ValueError:
             pass
 
-    def size(self):
+    def __len__(self):                                  # size v2
         count = 0
-        for i in self.hash_map:
-            if not i:
+        for i, player_list in enumerate(self.hash_map):
+            if not player_list:
                 pass
             else:
-                count = count + 1
+                current_node = player_list._head  # using head as the start of the list
+                while current_node:  # Iterate through the linked list
+                    count = count + 1
+                    current_node = current_node._next  # Move to the next node
         return count
 
-    def print_table(self):
+    def display(self):                              # display
         """
         Prints the entire hash table, displaying each index and its associated PlayerList.
         
@@ -74,13 +77,17 @@ def main():
     ph = PlayerHashTable()
     ph['1'] = 'Raf'
     ph['2'] = 'Faf'
+    ph['4'] = 'gaf'
+    ph['3'] = 'baw'
+    # ph['1'] = 'Raf'
+    # ph['2'] = 'Faf'
     print(ph['1'])
     print(ph['2'])
     print("")
 
-    ph.remove('2')
+    ph.__delitem__('2')
 
-    ph.print_table()
+    ph.display()
     # print(ph['2'])
     print("")
     # ph['42']
@@ -92,7 +99,9 @@ def main():
         print(ph[str(pl)])
 
     print("")
-    ph.print_table()
+    ph.display()
+    print("")
+    print(ph.__len__())
 
 
 if __name__ == '__main__':

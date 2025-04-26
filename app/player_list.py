@@ -161,7 +161,8 @@ class PlayerList:
     def __str__(self) -> str:
         """Returns a string representation of the PlayerList."""
         if self.is_empty():
-            return "List is empty"
+            return "[]"
+            #return "List is empty"
 
         current = self._head
         nodes = []
